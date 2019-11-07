@@ -323,6 +323,8 @@ func ParseTimestamp(format string, timestamp interface{}, location string) (time
 	switch format {
 	case "unix", "unix_ms", "unix_us", "unix_ns":
 		return parseUnix(format, timestamp)
+        case "ticks":
+                return parseUnix("unix_us", (timestamp.(float64) - 621355968000000000) / 10)
 	default:
 		if location == "" {
 			location = "UTC"
